@@ -7,11 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Hello!</p>
-    <p>We just want to notify you about your appointment with our clinic.</p>
-    <p>Date : <b>{{ $date }}</b></p>
-    <p>Time : <b>{{ $time }}</b></p>
-    <p>Purpose : <b>{{ $purpose }}</b></p>
-    <p>Keep in mind the date and time. See you!</p>
+    <p>Hello,</p>
+    <p>Your appointment request in our clinic has been approved. Here are the details of your appointment. </p>
+    <p>Date of Appointment: <b>{{ $date }}</b></p>
+    <p>Time of Appointment: <b>{{ $time }}</b></p>
+    <p>Purpose for Appointment: <b>{{ $purpose }}</b></p>
+    <p>Keep in mind the date and time. We look forward to seeing you soon!</p>
+    <p>If you need to cancel or reschedule please reply to this email or contact us at 0933-812-1582.</p>
+    <p>Thank you!</p>
 </body>
 </html>

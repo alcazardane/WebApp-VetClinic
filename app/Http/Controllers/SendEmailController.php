@@ -13,7 +13,7 @@ class SendEmailController extends Controller
     {
         $useremail = Appointment::findorFail($id);
         $date = date('m/d/y', strtotime($useremail->datetime));
-        $time = date('h:m A', strtotime($useremail->datetime));
+        $time = date('h:i A', strtotime($useremail->datetime));
         $purpose = $useremail->purpose;
         Mail::to($useremail->email)->send(new RecordsMail($date, $time, $purpose));
 

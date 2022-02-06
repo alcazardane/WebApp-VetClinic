@@ -45,7 +45,9 @@ class PageController extends Controller
         $appointment->appointmentid = $appidformat;
         $appointment->save();
 
-        return redirect('/')->with('success', 'Appointment Scheduled');
+        return redirect('/')->with('success', 'Thank you for requesting your appointment online. 
+        We will send you an email confirmation as soon as this appointment is approved.
+        Have a great day ahead!');
     }
 
     public function adminDashboard()
@@ -65,6 +67,14 @@ class PageController extends Controller
 
     public function helpfularticle(){
         return view('pages.articles');
+    }
+
+    public function help(){
+        return view('pages.help'); //for admin
+    }
+	
+	public function helppage(){
+        return view('pages.helppage'); //for client
     }
 
     public function authenticate(Request $request){
