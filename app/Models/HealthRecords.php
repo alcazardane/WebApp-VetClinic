@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class HealthRecords extends Model
 {
     use HasFactory;
-    protected $table = 'HealthRecords';
+    public $table = 'healthrecords';
 }
