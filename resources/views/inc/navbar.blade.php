@@ -52,9 +52,15 @@
                                     <a class="dropdown-item" href="{{ route('dashboard') }}" role="button">
                                         Dashboard
                                     </a>
+                                    <a class="dropdown-item" href="/help">
+										Help
+									</a>
                                 @else
                                 <a class="dropdown-item" href="/client-profile/{{ Auth::user()->id }}">
                                     My Profile
+                                </a>
+                                <a class="dropdown-item" href="/help-page">
+                                    Help
                                 </a>
                                 @endif
 

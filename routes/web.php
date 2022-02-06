@@ -55,6 +55,8 @@ Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
 Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
 
 Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
+Route::get('/help', [PageController::class, 'help']);
+Route::get('/help-page', [PageController::class, 'helppage']);
 
 Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
 Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
