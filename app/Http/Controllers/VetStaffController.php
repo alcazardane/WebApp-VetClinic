@@ -144,4 +144,16 @@ class VetStaffController extends Controller
         VetStaff::destroy($id);
         return redirect('vetstaff');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $vetstaff = VetStaff::find($id);
+        $vetstaff->status = 'archive';
+        $vetstaff->save();
+
+        return redirect('vetstaff');
+    }
 }

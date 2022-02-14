@@ -130,4 +130,16 @@ class GroomingRecordsController extends Controller
         GroomingRecords::destroy($id);
         return redirect('groomingrecords');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $groomingrecords = GroomingRecords::find($id);
+        $groomingrecords->status = 'archive';
+        $groomingrecords->save();
+
+        return redirect('groomingrecords');
+    }
 }

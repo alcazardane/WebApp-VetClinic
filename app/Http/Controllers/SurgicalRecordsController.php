@@ -136,4 +136,16 @@ class SurgicalRecordsController extends Controller
         SurgicalRecords::destroy($id);
         return redirect('surgicalrecords');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $records = SurgicalRecords::find($id);
+        $records->status = 'archive';
+        $records->save();
+
+        return redirect('surgicalrecords');
+    }
 }

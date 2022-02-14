@@ -147,4 +147,16 @@ class HealthRecordsController extends Controller
         HealthRecords::destroy($id);
         return redirect('/healthrecords');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $records = HealthRecords::find($id);
+        $records->status = 'archive';
+        $records->save();
+
+        return redirect('healthrecords');
+    }
 }

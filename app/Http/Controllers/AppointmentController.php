@@ -143,4 +143,16 @@ class AppointmentController extends Controller
         Appointment::destroy($id);
         return redirect('/appointment');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $appointment = Appointment::find($id);
+        $appointment->status = 'archive';
+        $appointment->save();
+
+        return redirect('appointment');
+    }
 }

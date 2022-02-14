@@ -132,4 +132,16 @@ class ConsultationRecordsController extends Controller
         ConsultationRecords::destroy($id);
         return back();
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $records = ConsultationRecords::find($id);
+        $records->status = 'archive';
+        $records->save();
+
+        return redirect('consultationrecords');
+    }
 }

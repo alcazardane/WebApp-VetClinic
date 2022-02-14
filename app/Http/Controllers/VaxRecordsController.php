@@ -138,4 +138,16 @@ class VaxRecordsController extends Controller
         VaxRecords::destroy($id);
         return redirect('vaxrecords');
     }
+
+    /**
+     * Hide the specified resource from view
+     */
+    public function archive($id)
+    {
+        $vaxrecords = VaxRecords::find($id);
+        $vaxrecords->status = 'archive';
+        $vaxrecords->save();
+
+        return redirect('vaxrecords');
+    }
 }

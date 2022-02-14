@@ -30,6 +30,7 @@ use App\Http\Controllers\SurgicalHistoryDocController;
 use App\Http\Controllers\ConsultationHistoryDocController;
 use App\Http\Controllers\PublicRecordsController;
 use App\Http\Controllers\PetProfileController;
+use App\Http\Controllers\ArchiveController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +64,7 @@ Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
 Route::resource('accprofile', ProfileController::class);
 
 Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [PageController::class, 'index'])->name('home');
 Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
@@ -90,11 +92,13 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // * Appointment
         Route::resource('appointment', AppointmentController::class);
         Route::get('/appointment-destroy/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+        Route::get('/appointment-archive/{id}', [AppointmentController::class, 'archive'])->name('appointment.archive');
     // *--------------------
 
     // * Vaccine Records
         Route::resource('vaxrecords', VaxRecordsController::class);
         Route::get('vaxrecords-destroy/{id}', [VaxRecordsController::class, 'destroy'])->name('vaxrecords.destroy');
+        Route::get('vaxrecords-archive/{id}', [VaxRecordsController::class, 'archive'])->name('vaxrecords.archive');
 
         Route::get('vaxhistory-destroy/{id}', [VaxHistoryController::class, 'destroy'])->name('vaxhistory.destroy');
 
@@ -104,6 +108,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // * Health Records
         Route::resource('healthrecords', HealthRecordsController::class);
         Route::get('/healthrecords-destroy/{id}', [HealthRecordsController::class, 'destroy'])->name('healthrecords.destroy');
+        Route::get('/healthrecords-archive/{id}', [HealthRecordsController::class, 'archive'])->name('healthrecords.archive');
 
         Route::resource('medicalhistory', MedicalHistoryController::class);
         Route::get('/healthrecords/medicalhistory-destroy/{id}', [MedicalHistoryController::class, 'destroy']);
@@ -115,6 +120,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // * Grooming Routes
         Route::resource('groomingrecords', GroomingRecordsController::class);
         Route::get('groomingrecords-destroy/{id}', [GroomingRecordsController::class, 'destroy'])->name('groomingrecords.destroy');
+        Route::get('groomingrecords-archive/{id}', [GroomingRecordsController::class, 'archive'])->name('groomingrecords.archive');
 
         Route::resource('groominghistory', GroomingHistoryController::class);
         Route::post('groominghistory/store', [GroomingHistoryController::class, 'store'])->name('groominghistory.store');
@@ -126,22 +132,25 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // * Staff and Vets
         Route::resource('vetstaff', VetStaffController::class);
         Route::get('/vetstaff-destroy/{id}', [VetStaffController::class, 'destroy'])->name('vetstaff.destroy');
+        Route::get('/vetstaff-archive/{id}', [VetStaffController::class, 'archive'])->name('vetstaff.archive');
     // *--------------------
 
     // * userAdmin
     Route::resource('users', UserController::class);
 
     // * Posts
-    Route::resource('posts', PostsController::class);
-    Route::get('/posts-destroy/{id}', [PostsController::class, 'destroy']);
-    Route::put('/posts-update/{id}', [PostsController::class, 'update']);
-    Route::get('/posts-publish/{id}', [PostsController::class, 'publish']);
-    Route::post('posts/upload', [PostsController::class, 'upload'])->name('ckeditor.image-upload');
+        Route::resource('posts', PostsController::class);
+        Route::get('/posts-destroy/{id}', [PostsController::class, 'destroy']);
+        Route::put('/posts-update/{id}', [PostsController::class, 'update']);
+        Route::get('/posts-publish/{id}', [PostsController::class, 'publish']);
+        Route::post('posts/upload', [PostsController::class, 'upload'])->name('ckeditor.image-upload');
+    // *--------------------
 
     // * Public Posts
-    Route::resource('publicposts', PublicPostsController::class);
-    Route::get('/publicposts-hidepost/{id}', [PublicPostsController::class, 'hide']);
-    Route::get('/publicposts-destroy/{id}', [PublicPostsController::class, 'destroy']);
+        Route::resource('publicposts', PublicPostsController::class);
+        Route::get('/publicposts-hidepost/{id}', [PublicPostsController::class, 'hide']);
+        Route::get('/publicposts-destroy/{id}', [PublicPostsController::class, 'destroy']);
+    // *--------------------
 
     // * Profile
     Route::resource('profile', ProfileController::class);
@@ -150,11 +159,12 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('send-email/{id}', [SendEmailController::class, 'RecordsEmail']);
 
     // * Requests
-    Route::get('reqrecords', [ReqRecordController::class, 'index']);
+        Route::get('reqrecords', [ReqRecordController::class, 'index']);
 
     // * Surgical Routes
         Route::resource('surgicalrecords', SurgicalRecordsController::class);
         Route::get('surgicalrecords-destroy/{id}', [SurgicalRecordsController::class, 'destroy'])->name('surgicalrecords.destroy');
+        Route::get('surgicalrecords-archive/{id}', [SurgicalRecordsController::class, 'archive'])->name('surgicalrecords.archive');
 
         Route::resource('surgicalhistory', SurgicalHistoryController::class);
         Route::get('surgicalhistory-destroy/{id}', [SurgicalHistoryController::class, 'destroy'])->name('surgicalhistory.destroy');
@@ -166,11 +176,37 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // *Consultation Routes
         Route::resource('consultationrecords', ConsultationRecordsController::class);
         Route::get('consultationrecords-destroy/{id}', [ConsultationRecordsController::class, 'destroy']);
+        Route::get('consultationrecords-archive/{id}', [ConsultationRecordsController::class, 'archive'])->name('consultationrecords.archive');
 
         Route::resource('consultationhistory', ConsultationHistoryController::class);
         Route::get('consultationhistory-destroy/{id}', [ConsultationHistoryController::class, 'destroy'])->name('consultationhistory.destroy');
 
         Route::resource('consultationhistorydoc', ConsultationHistoryDocController::class);
         Route::get('consultationhistorydoc-docx/{id}', [ConsultationHistoryDocController::class, 'store'])->name('consultationhistorydoc.store');
+    // *--------------------
+
+    // * Archive Routes
+        Route::get('archive', [ArchiveController::class, 'index'])->name('archive.index');
+
+        Route::get('archive/healthrecords', [ArchiveController::class, 'archealthrecords'])->name('archive.healthrecords');
+        Route::get('archive/healthrecords/restore/{id}', [ArchiveController::class, 'activatehealthrecord'])->name('archive.restorehr');
+
+        Route::get('archive/consultationrecords', [ArchiveController::class, 'arcconsultationrecords'])->name('archive.consultationrecords');
+        Route::get('archive/consultationrecords/restore/{id}', [ArchiveController::class, 'activateconsultationrecord'])->name('archive.restorecr');
+
+        Route::get('archive/vaxrecords', [ArchiveController::class, 'arcvaxrecords'])->name('archive.vaxrecords');
+        Route::get('archive/vaxrecords/restore/{id}', [ArchiveController::class, 'activatevaxrecord'])->name('archive.restorevr');
+
+        Route::get('archive/appointments', [ArchiveController::class, 'arcappointments'])->name('archive.appointments');
+        Route::get('archive/appointments/restore/{id}', [ArchiveController::class, 'activateappointment'])->name('archive.restoreappointment');
+
+        Route::get('archive/groomingrecords', [ArchiveController::class, 'arcgroomingrecords'])->name('archive.groomingrecords');
+        Route::get('archive/groomingrecords/restore/{id}', [ArchiveController::class, 'activategroomingrecord'])->name('archive.restoregr');
+
+        Route::get('archive/surgicalrecords', [ArchiveController::class, 'arcsurgicalrecords'])->name('archive.surgicalrecords');
+        Route::get('archive/surgicalrecords/restore/{id}', [ArchiveController::class, 'activatesurgicalrecord'])->name('archive.restoresr');
+
+        Route::get('archive/vetstaff', [ArchiveController::class, 'arcvetstaff'])->name('archive.vetstaff');
+        Route::get('archive/vetstaff/restore/{id}', [ArchiveController::class, 'activatevetstaff'])->name('archive.restorevs');
     // *--------------------
 });
