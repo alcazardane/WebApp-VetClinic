@@ -9,8 +9,7 @@
     <div class="row m-5 d-flex justify-content-center">
         <div class="col-lg-3">
             <img
-            {{-- /storage/profileimage/{{ Auth::user()->profileimage }} --}}
-                src="{{ URL::to('storage/'.Auth::user()->profileimage) }}"
+                src="/storage/profileimage/{{ Auth::user()->profileimage }}"
                 class="rounded-circle img-fluid"
                 height="35%"
                 alt="Avatar"

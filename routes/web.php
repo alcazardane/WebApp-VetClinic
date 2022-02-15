@@ -53,36 +53,39 @@ Route::get('/login', [PageController::class, 'login']);
 Route::get('/register', [PageController::class, 'register']);
 Route::get('/user', [PageController::class, 'verify_user']);
 
-// * Guess Appointment
-Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
-Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
-
-Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
-Route::get('/help', [PageController::class, 'help']);
-Route::get('/help-page', [PageController::class, 'helppage']);
-
-Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
-Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
-Route::resource('accprofile', ProfileController::class);
-
 Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/home', [PageController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
-Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
-Route::get('reqrecords/{id}', [ReqRecordController::class, 'hide']);
+Route::middleware(['auth', 'verified'])->group(function () {
+    // * Guess Appointment
+    Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
+    Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
+    
+    Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
+    Route::get('/help', [PageController::class, 'help']);
+    Route::get('/help-page', [PageController::class, 'helppage']);
+    
+    Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
+    Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
+    Route::resource('accprofile', ProfileController::class);
+    
+    Route::get('/home', [PageController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
+    Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
+    Route::get('reqrecords/{id}', [ReqRecordController::class, 'hide']);
+    
+    Route::post('publicrecords-store/{id}', [PublicRecordsController::class, 'store'])->name('pubrecords.store');
+    Route::get('publicrecords-show/{id}', [PublicRecordsController::class, 'show'])->name('pubrecords.show');
+    Route::get('publicrecords-destroy/{id}', [PublicRecordsController::class, 'destroy'])->name('pubrecords.destroy');
+    
+    Route::resource('petprofile', PetProfileController::class);
+    Route::get('petprofile-destroy/{id}', [PetProfileController::class, 'destroy'])->name('petprofile.destroy');
+    
+    Route::resource('vaxhistory', VaxHistoryController::class);
+});
 
-Route::post('publicrecords-store/{id}', [PublicRecordsController::class, 'store'])->name('pubrecords.store');
-Route::get('publicrecords-show/{id}', [PublicRecordsController::class, 'show'])->name('pubrecords.show');
-Route::get('publicrecords-destroy/{id}', [PublicRecordsController::class, 'destroy'])->name('pubrecords.destroy');
-
-Route::resource('petprofile', PetProfileController::class);
-Route::get('petprofile-destroy/{id}', [PetProfileController::class, 'destroy'])->name('petprofile.destroy');
-
-Route::resource('vaxhistory', VaxHistoryController::class);
 
 // * Admin Routes
 Route::middleware(['auth', 'isAdmin'])->group(function () {

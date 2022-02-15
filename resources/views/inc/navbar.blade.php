@@ -44,17 +44,17 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                            
-                        <!--LOGGED IN-->
-                        @else
+                        @endguest
+
+                        @auth
                             <li class="nav-item">
                                 @if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff' || Auth::user()->user_type == 'vet')
                                     <a class="dropdown-item" href="{{ route('dashboard') }}" role="button">
                                         Dashboard
                                     </a>
                                     <a class="dropdown-item" href="/help">
-										Help
-									</a>
+                                        Help
+                                    </a>
                                 @else
                                 <a class="dropdown-item" href="/client-profile/{{ Auth::user()->id }}">
                                     My Profile
@@ -63,7 +63,7 @@
                                     Help
                                 </a>
                                 @endif
-
+                            
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
@@ -74,7 +74,7 @@
                                     @csrf
                                 </form>
                             </li>
-                    @endguest
+                        @endauth
                     </ul>
                   </li>
             </ul>

@@ -89,7 +89,7 @@ class ProfileController extends Controller
             $extension = $request->file('profileimage')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             $updateprofile->profileimage = $fileNameToStore;
-            $path = $request->file('profileimage')->storeAs('public', $fileNameToStore);
+            $path = $request->file('profileimage')->storeAs('public/profileimage', $fileNameToStore);
         }
         $updateprofile->save();
 
