@@ -1,6 +1,6 @@
 @extends('layouts.layoutTable')
 
-@include('inc.routes.publicposts')
+@include('inc.routes')
 
 @section('tbl_name')
     <h4>Public Posts</h4>

@@ -6,7 +6,7 @@
     </div>
 @endsection
 
-@include('inc.routes.posts')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Posts</p>

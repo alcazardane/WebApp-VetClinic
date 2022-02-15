@@ -1,7 +1,7 @@
 @extends('layouts.layoutTable')
 
 <!--Sidebar-->
-@include('inc.routes.vaxrecords')
+@include('inc.routes')
 
 @section('layout_content')
     <div class="container-fluid">

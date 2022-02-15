@@ -1,6 +1,6 @@
 @extends('layouts.layoutTable')
 
-@include('inc.routes.groomingrecords')
+@include('inc.routes')
 
 @section('layout_content')
     <div class="container-fluid">

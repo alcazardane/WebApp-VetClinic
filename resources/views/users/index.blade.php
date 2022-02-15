@@ -21,15 +21,15 @@
 </div>
 @endsection
 
-@include('inc.routes.users')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Accounts</p>
 @endsection
 
 @section('tbl_content')
-    <div class="table">
-        <table class="table" style="background-color: #fff;">
+    <div class="table-responsive">
+        <table class="table align-middle" style="background-color: #fff;">
                 <tr class="bg-success text-white">
                     <td scope="col">Name</td>
                     <td scope="col">Email Address</td>

@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 
 @section('_content')
-<div class="container-fluid p-5">
-    <div class="row justify-content-between mt-4">
+<div class="container-fluid p-5 align-items-center">
+    <div class="row m-5 justify-content-between mt-4">
         <p class="display-6 mb-5">My Profile</p>
     </div>
     
-    <div class="row d-flex justify-content-center">
+    <div class="row m-5 d-flex justify-content-center">
         <div class="col-lg-3">
             <img
                 src="/storage/profileimage/{{ Auth::user()->profileimage }}"
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="row mt-5 d-flex justify-content-center">
+    <div class="row m-5 d-flex justify-content-center">
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample1">
                 <form method="POST" action="{{ route('accprofile.update', Auth::user()->id) }}" enctype="multipart/form-data">
@@ -120,14 +120,14 @@
         
     </div>
 
-
-    <div class="row mt-5 d-flex justify-content-center">
+    <div class="row m-5 d-flex justify-content-center">
         <p class="display-6">My Pet/s</p>
         <div class="col">
             <a href="{{ route('petprofile.create') }}" type="button" class="btn btn-success">Add a Pet</a>
         </div>
     </div>
-    <div class="row mt-5 d-flex justify-content-start">
+
+    <div class="row m-5 d-flex justify-content-start">
         @if (count($petprofile) >= 1)
             @foreach ($petprofile as $petprofile)
                 <div class="col-md-4 col-xl-4">

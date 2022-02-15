@@ -1,6 +1,6 @@
 @extends('layouts.layoutTable')
 
-@include('inc.routes.archive')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Archives</p>
@@ -14,7 +14,7 @@
 
 @section('tbl_content')
 <div class="table-responsive-xl">
-    <table class="table table-sm" style="background-color: #fff;">
+    <table class="table table-sm align-middle" style="background-color: #fff;">
         <tr class="bg-success text-white">
             <td scope="col">Owner Name</td>
             <td scope="col">Pet Name</td>

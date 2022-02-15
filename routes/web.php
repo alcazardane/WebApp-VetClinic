@@ -45,7 +45,7 @@ use App\Http\Controllers\ArchiveController;
 */
 
 // * Home
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [PageController::class, 'index'])->middleware(['auth', 'verified']);
 // * Login
 Route::get('/login', [PageController::class, 'login']);
 
@@ -71,7 +71,7 @@ Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/home', [PageController::class, 'index'])->name('home');
+Route::get('/home', [PageController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
 Route::get('reqrecords/{id}', [ReqRecordController::class, 'hide']);
 

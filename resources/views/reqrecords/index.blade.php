@@ -1,6 +1,6 @@
 @extends('layouts.layoutTable')
 
-@include('inc.routes.requestrecords')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Record Requests</p>

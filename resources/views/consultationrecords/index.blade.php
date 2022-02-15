@@ -22,7 +22,7 @@
 </div>
 @endsection
 
-@include('inc.routes.consultationrecords')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Consultation Records</p>
@@ -31,7 +31,7 @@
 @section('tbl_content')
     @if (count($records) >= 1)
     <div class="table-responsive mt-4">
-        <table class="table" style="background-color: #fff;">
+        <table class="table align-middle" style="background-color: #fff;">
             <tr class="bg-success text-white">
                 <td class="h6" scope="col">Owner Name</td>
                 <td class="h6" scope="col">Pet Name</td>

@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'admin', 
-            'email' => 'admin@example.com', 
+            'email' => 'jlalaineandrea@gmail.com', 
             'password' => Hash::make('admin'), 
             'user_type' => 'admin', 
             'profileimage' => 'ClinicLogo.png'

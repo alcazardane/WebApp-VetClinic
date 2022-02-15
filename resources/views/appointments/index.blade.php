@@ -22,7 +22,7 @@
 </div>
 @endsection
 
-@include('inc.routes.appointments')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Appointments</p>

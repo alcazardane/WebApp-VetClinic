@@ -29,12 +29,20 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-      if (Auth::user()->user_type == 'admin')
-      {
-        return 'dashboard';  // admin dashboard path
-      } else {
-        return '/';  // member dashboard path
-      }
+      //if(Auth::user()->hasVerifiedEmail())
+      //{
+        if (Auth::user()->user_type == 'admin')
+        {
+          return 'dashboard';  // admin dashboard path
+        } else {
+          return '/';  // member dashboard path
+        }
+      //}
+
+      //else{
+      //  return 'email/verify';
+      //}
+      
     }
 
     /**

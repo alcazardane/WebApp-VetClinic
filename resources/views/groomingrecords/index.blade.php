@@ -22,7 +22,7 @@
 </div>
 @endsection
 
-@include('inc.routes.groomingrecords')
+@include('inc.routes')
 
 @section('tbl_name')
     <p class="display-6">Grooming Records</p>
@@ -30,7 +30,7 @@
 
 @section('tbl_content')
     <div class="table-responsive">
-        <table class="table" style="background-color: #fff;">
+        <table class="table align-middle" style="background-color: #fff;">
             <tr class="bg-success text-white">
                 <td scope="col">Owner Name</td>
                 <td scope="col">Pet Name</td>
