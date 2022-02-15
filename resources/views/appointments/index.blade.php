@@ -47,7 +47,7 @@
                 </tr>
                 @if (count($appointments) >= 1)
                 @foreach ($appointments as $appointments)
-                    @if (Carbon\Carbon::parse(date('Y-m-d', strtotime($appointments->datetime)))->gte(date('Y-m-d', strtotime(Carbon\Carbon::now()))) || $appointments->status == "active")
+                    @if (Carbon\Carbon::parse(date('Y-m-d', strtotime($appointments->datetime)))->gte(date('Y-m-d', strtotime(Carbon\Carbon::now()))) && $appointments->status == "active")
                     <tr>
                         <td>{{$appointments->firstname}}</td>
                         <td>{{$appointments->lastname}}</td>

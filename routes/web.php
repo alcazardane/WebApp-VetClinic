@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\VetStaffController;
@@ -65,6 +67,9 @@ Route::resource('accprofile', ProfileController::class);
 
 Auth::routes();
 Auth::routes(['verify' => true]);
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
 
 Route::get('/home', [PageController::class, 'index'])->name('home');
 Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
