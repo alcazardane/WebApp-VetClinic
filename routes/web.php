@@ -45,7 +45,7 @@ use App\Http\Controllers\ArchiveController;
 */
 
 // * Home
-Route::get('/', [PageController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/', [PageController::class, 'index']);
 // * Login
 Route::get('/login', [PageController::class, 'login']);
 

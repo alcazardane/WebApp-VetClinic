@@ -20,7 +20,7 @@ class AdminMiddleware
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff' || Auth::user()->user_type == 'vet'){
             return $next($request);
           } else {
-            return redirect('/');
+            return redirect('/home');
           }
     }
 }

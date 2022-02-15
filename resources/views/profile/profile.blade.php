@@ -11,7 +11,8 @@
         <div class="row align-items-center">
             <div class="col-lg-3">
                 <img
-                    src="/storage/profileimage/{{ Auth::user()->profileimage }}"
+                {{-- /storage/profileimage/{{ Auth::user()->profileimage }} --}}
+                    src="{{ URL::to('storage/profileimage/'.Auth::user()->profileimage) }}"
                     class="rounded-circle img-fluid"
                     height="35%"
                     alt="Avatar"
