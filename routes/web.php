@@ -53,6 +53,10 @@ Route::get('/login', [PageController::class, 'login']);
 Route::get('/register', [PageController::class, 'register']);
 Route::get('/user', [PageController::class, 'verify_user']);
 
+Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
+Route::get('/help', [PageController::class, 'help']);
+Route::get('/help-page', [PageController::class, 'helppage']);
+
 Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
@@ -63,10 +67,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // * Guess Appointment
     Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
     Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
-    
-    Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
-    Route::get('/help', [PageController::class, 'help']);
-    Route::get('/help-page', [PageController::class, 'helppage']);
     
     Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
     Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
