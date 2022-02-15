@@ -12,7 +12,7 @@
             <div class="col-lg-3">
                 <img
                 {{-- /storage/profileimage/{{ Auth::user()->profileimage }} --}}
-                    src="{{ URL::to('storage/profileimage/'.Auth::user()->profileimage) }}"
+                    src="{{ URL::to('storage/'.Auth::user()->profileimage) }}"
                     class="rounded-circle img-fluid"
                     height="35%"
                     alt="Avatar"
