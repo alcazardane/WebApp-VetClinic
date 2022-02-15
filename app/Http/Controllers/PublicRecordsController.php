@@ -25,7 +25,7 @@ class PublicRecordsController extends Controller
         $extension = $request->file('filerecord')->getClientOriginalExtension();
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
         $pubrecords->filerecord = $fileNameToStore;
-        $path = $request->file('filerecord')->storeAs('public/filerecords', $fileNameToStore);
+        $path = $request->file('filerecord')->storeAs('public', $fileNameToStore);
         $pubrecords->save();
 
         $reqstatus->status = $request->status;

@@ -55,7 +55,7 @@ class PetProfileController extends Controller
             $extension = $request->file('petimage')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             $petprofile->profilepicture = $fileNameToStore;
-            $path = $request->file('petimage')->storeAs('public/profileimage', $fileNameToStore);
+            $path = $request->file('petimage')->storeAs('public', $fileNameToStore);
         }
         else{
             $petprofile->profilepicture = "ClinicLogo.png";
