@@ -31,8 +31,8 @@
                             <input type="text" name="weight" class="form-control" id="_weight" placeholder="(kg)">
                         </div>
     
-                        <div class="col">temp
-                            <label for="_temp" class="form-label">Temp</label>temp
+                        <div class="col">
+                            <label for="_temp" class="form-label">Temp</label>
                             <input type="text" name="temp" class="form-control" id="_temp" placeholder="(Celsius)">
                         </div>
                     </div>

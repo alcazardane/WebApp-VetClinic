@@ -62,8 +62,7 @@
                     <div class="mb-3">
                         <label for="_purpose" class="form-label">Appointment Purpose</label>
                         <select class="form-select" name="purpose" id="_purpose">
-                            <option selected>Select Purpose..</option>
-                            <option value="Vaccination">Vaccination</option> 
+                            <option selected value="Vaccination">Vaccination</option> 
                             <option value="Grooming">Grooming</option>
                             <option value="Consultation">Consultation</option>
                             <option value="Surgery">Surgery</option>
