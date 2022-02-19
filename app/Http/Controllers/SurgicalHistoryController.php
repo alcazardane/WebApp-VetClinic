@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SurgicalRecords;
 use App\Models\SurgicalHistory;
+use App\Models\Report;
 use DB;
 
 class SurgicalHistoryController extends Controller

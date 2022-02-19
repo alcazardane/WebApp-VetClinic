@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MedicalHistory;
 use App\Models\HealthRecords;
+use App\Models\Report;
 use Illuminate\Support\Facades\Hash;
 use DB;
 
