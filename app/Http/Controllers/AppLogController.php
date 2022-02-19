@@ -10,7 +10,7 @@ class AppLogController extends Controller
 {
     public function show()
     {
-        $activity = Activity::all();
+        $activity = Activity::orderBy('created_at', 'DESC')->get();
 
         return view('applog', ['activity' => $activity]);
     }

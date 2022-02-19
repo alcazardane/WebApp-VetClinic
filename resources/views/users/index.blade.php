@@ -31,6 +31,7 @@
     <div class="table-responsive">
         <table class="table align-middle" style="background-color: #fff;">
                 <tr class="bg-success text-white">
+                    <td scope="col">ID</td>
                     <td scope="col">Name</td>
                     <td scope="col">Email Address</td>
                     <td scope="col">User Type</td>
@@ -39,6 +40,7 @@
                 @if (count($users) >= 1)
                 @foreach ($users as $users)
                     <tr>
+                        <td>{{$users->id}}</td>
                         <td>{{$users->name}}</td>
                         <td>{{$users->email}}</td>
                         <td>{{$users->user_type}}</td>

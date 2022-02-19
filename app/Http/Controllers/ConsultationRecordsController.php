@@ -30,6 +30,7 @@ class ConsultationRecordsController extends Controller
         ])
             ->orderBy("id", "ASC")
             ->paginate(9999);
+            
         return view('consultationrecords.index', ['records' => $records]);
     }
 

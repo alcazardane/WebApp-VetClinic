@@ -20,11 +20,17 @@ class ReportController extends Controller
             [function($query) use ($request) {
                 if(($search = $request->search)) {
                     $query->orWhere('reporteddate', 'LIKE', '%'.$search.'%')
+                    ->orWhere('appointment', 'LIKE', '%'.$search.'%')
+                    ->orWhere('health', 'LIKE', '%'.$search.'%')
+                    ->orWhere('vaccine', 'LIKE', '%'.$search.'%')
+                    ->orWhere('grooming', 'LIKE', '%'.$search.'%')
+                    ->orWhere('consultation', 'LIKE', '%'.$search.'%')
+                    ->orWhere('surgical', 'LIKE', '%'.$search.'%')
                     ->get();
                 }
             }]
         ])
-            ->orderBy("id", "ASC")
+            ->orderBy("reporteddate", "ASC")
             ->paginate(9999);
 
         return view('statistics.index', ['report' => $report]);

@@ -12,7 +12,7 @@
                         <li class="list-group-item mt-3 mb-3">
                                 {{ $activity->description }}
                                 <h6 class="m-b-20">{{ $activity->created_at }}</h6>
-                                <span>{{ $activity->causer_type }} : {{ $activity->causer_id }}</span>
+                                <span>User #{{ $activity->causer_id }}</span>
                         </li>
                 @endif
                 @endforeach
