@@ -58,13 +58,13 @@ class ConsultationRecordsController extends Controller
             'breed' => 'required',
         ]);
 
-        $records = new ConsultationRecords;
-        $records->ownername = $request->ownername;
-        $records->petname = $request->petname;
-        $records->species = $request->species;
-        $records->breed = $request->breed;
-        $records->recid = Hash::make($request->petname.$records->id);
-        $records->save();
+        $records = ConsultationRecords::create([
+            'ownername' => $request->ownername,
+            'petname' => $request->petname,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'recid' => uniqid('VTKZCONREC', true),
+        ]);
 
         return redirect('consultationrecords');
     }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointment;
+use App\Models\Report;
 use Carbon\Carbon;
+use DB;
 
 class AppointmentController extends Controller
 {
@@ -61,18 +63,23 @@ class AppointmentController extends Controller
             'purpose' => 'required',
         ]);
 
-        $appointment = new Appointment;
+        $createAppointment = Appointment::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'contactnum' => $request->contactnum,
+            'email' => $request->email,
+            'purpose' => $request->purpose,
+            'datetime' => $request->datetime,
+            'appointmentid' => uniqid('VTKZAPP', true),
+        ]);
         
-        $appointment->firstname = $request->firstname;
-        $appointment->lastname = $request->lastname;
-        $appointment->contactnum = $request->contactnum;
-        $appointment->email = $request->email;
-        $appointment->datetime = $request->datetime;
-        $appointment->purpose = $request->purpose;
-        $appid = $appointment->id;
-        $appidformat = sprintf('APP%s', $appid);
-        $appointment->appointmentid = $appidformat;
-        $appointment->save();
+        $report = Report::updateOrCreate(
+            ['reporteddate' => Carbon::parse($request->datetime)->format('Y-m-d')],
+            [
+                'reporteddate' => Carbon::parse($request->datetime)->format('Y-m-d'),
+                'appointment' => DB::raw('appointment + 1')
+            ],
+        );
 
         return redirect('/appointment');
     }

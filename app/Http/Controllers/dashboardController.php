@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Models\ReqRecords;
+use App\Models\ConsultationHistory;
+use App\Models\GroomingHistory;
+use App\Models\MedicalHistory;
+use App\Models\VaxHistory;
+use App\Models\SurgicalHistory;
 
 class dashboardController extends Controller
 {
@@ -17,7 +22,12 @@ class dashboardController extends Controller
     {
         $appointment = Appointment::all();
         $reqrecord = ReqRecords::all();
-        return view('dashboard.index', ['appointment' => $appointment, 'reqrecord' => $reqrecord]);
+        $conhis = ConsultationHistory::all();
+        $groominghis = GroomingHistory::all();
+        $medicalhis = MedicalHistory::all();
+        $vaxhis = VaxHistory::all();
+        $surgicalhis = SurgicalHistory::all();
+        return view('dashboard.index', ['appointment' => $appointment, 'reqrecord' => $reqrecord, 'conhis' => $conhis, 'groominghis' => $groominghis, 'medicalhis' => $medicalhis, 'vaxhis' => $vaxhis, 'surgicalhis' => $surgicalhis]);
     }
 
     /**

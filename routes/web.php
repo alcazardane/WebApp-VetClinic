@@ -33,6 +33,9 @@ use App\Http\Controllers\ConsultationHistoryDocController;
 use App\Http\Controllers\PublicRecordsController;
 use App\Http\Controllers\PetProfileController;
 use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\ReportController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +60,10 @@ Route::get('/helpful-articles', [PageController::class, 'helpfularticle']);
 Route::get('/help', [PageController::class, 'help']);
 Route::get('/help-page', [PageController::class, 'helppage']);
 
+// * Guess Appointment
+Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
+Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
+
 Auth::routes();
 Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
@@ -64,14 +71,13 @@ Route::get('/email/verify', function () {
 })->middleware('auth')->name('verification.notice');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // * Guess Appointment
-    Route::get('/set-appointment', [PageController::class, 'guessAppointment']);
-    Route::post('/guess-appointment-store', [PageController::class, 'guessAppointStore'])->name('page.guessappointstore');
     
-    Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
-    Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword']);
     Route::resource('accprofile', ProfileController::class);
+    Route::get('client-profile/{id}', [ProfileController::class, 'clientindex']);
+    Route::put('profile-pass/{id}', [ProfileController::class, 'updatepassword'])->name('accprofile.changepass');
     
+    Route::post('/logout-user', [LogoutController::class, 'perform'])->name('login.out');
+
     Route::get('/home', [PageController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
     Route::put('reqrecords/make/{id}', [ReqRecordController::class, 'make'])->name('reqrecords.make');
     Route::get('reqrecords/{id}', [ReqRecordController::class, 'hide']);
@@ -215,5 +221,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('archive/vetstaff', [ArchiveController::class, 'arcvetstaff'])->name('archive.vetstaff');
             Route::get('archive/vetstaff/restore/{id}', [ArchiveController::class, 'activatevetstaff'])->name('archive.restorevs');
         // *--------------------
+
+        // * Statistic Routes
+            Route::get('statistics', [ReportController::class, 'index'])->name('statistics.index');
+            Route::get('reportdoc', [ReportController::class, 'downloadStats'])->name('statistics.download');
+        // *-------------------- 
     });
 });

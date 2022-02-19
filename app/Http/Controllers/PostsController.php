@@ -44,19 +44,23 @@ class PostsController extends Controller
             'coverimage' => 'image|nullable|max:100000'
         ]);
 
-        $post = new Posts;
-        $post->title = $request->title;
-        $post->body = strip_tags($request->body);
+        $postcoverimage;
+
         if ($request->hasFile('coverimage')) {
             $filenameWithExt = $request->file('coverimage')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('coverimage')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $post->coverimage = $fileNameToStore;
+            $postcoverimage = $fileNameToStore;
             $path = $request->file('coverimage')->storeAs('public/coverimages', $fileNameToStore);
         }
-        $post->status = "unpublish";
-        $post->save();
+
+        $post = Posts::create([
+            'title' => $request->title,
+            'body' => strip_tags($request->body),
+            'coverimage' => $postcoverimage,
+            'status' => "unpublish",
+        ]);
 
         return redirect('posts')->with('success', 'Post Created');
     }
@@ -149,17 +153,15 @@ class PostsController extends Controller
     public function publish($id)
     {
         $post = Posts::findorFail($id);
-        $title = $post->title;
-        $body = strip_tags($post->body);
-        $coverimage=  $post->coverimage;
 
-        $pub = new PublicPosts;
-        $pub->title = $title;
-        $pub->body = $body;
-        $pub->coverimage = $coverimage;
-        $pub->status = "shown";
+        $pub = PublicPosts::create([
+            'title' => $post->title,
+            'body' => strip_tags($post->body),
+            'coverimage' => $post->coverimagee,
+            'status' => "shown",
+        ]);
+
         $post->status = "published";
-        $pub->save();
         $post->save();
 
         return redirect('posts')->with('success', 'Post Published');

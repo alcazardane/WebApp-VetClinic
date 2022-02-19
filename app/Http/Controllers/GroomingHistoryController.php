@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GroomingRecords;
 use App\Models\GroomingHistory;
+use App\Models\Report;
+use DB;
 
 class GroomingHistoryController extends Controller
 {
@@ -15,12 +17,16 @@ class GroomingHistoryController extends Controller
             'service' => 'required',
         ]);
 
-        $history = new GroomingHistory;
-        $history->date = $request->date;
-        $services = implode(', ', $request->service);
-        $history->services = $services;
-        $history->recid = $request->recid;
-        $history->save();
+        $history = GroomingHistory::create([
+            'date' => $request->date,
+            'services' => implode(', ', $request->service),
+            'recid' => $request->recid,
+        ]);
+
+        $report = Report::updateOrCreate(
+            ['reporteddate' => $request->date],
+            ['grooming' => DB::raw('grooming + 1')],
+        );
 
         return back();
     }

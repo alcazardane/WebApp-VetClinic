@@ -7,6 +7,8 @@ use App\Models\ConsultationRecords;
 use App\Models\ConsultationHistory;
 use PDF;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class ConsultationHistoryDocController extends Controller
 {
@@ -59,6 +61,12 @@ class ConsultationHistoryDocController extends Controller
         //Save it into PDF
         $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
         $PDFWriter->save(public_path($record->ownername.'_'.$record->petname.'-consultation'.'-pdfForm'.'.pdf'));
+
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn($history)
+            ->event('download')
+            ->log('Consultation History has been downloaded');
 
         return response()->download(public_path($record->ownername.'_'.$record->petname.'-consultation'.'-pdfForm'.'.pdf'));
     }

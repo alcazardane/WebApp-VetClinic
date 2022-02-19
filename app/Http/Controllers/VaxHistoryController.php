@@ -7,6 +7,7 @@ use App\Models\VaxRecords;
 use App\Models\VaxHistory;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use DB;
 
 class VaxHistoryController extends Controller
 {
@@ -22,16 +23,16 @@ class VaxHistoryController extends Controller
             'ownername' => 'required',
         ]);
 
-        $history = new VaxHistory;
-        $history->vaxdesc = $request->vaxdesc;
-        $history->vet = $request->vet;
-        $history->status = $request->status;
-        $history->date = $request->date;
-        $history->fdate = $request->fdate;
-        $history->recid = $request->recid;
-        $history->owneremail = $request->owneremail;
-        $history->ownername = $request->ownername;
-        $history->save();
+        $history = VaxHistory::create([
+            'vaxdesc' => $request->vaxdesc,
+            'vet' => $request->vet,
+            'status' => $request->status,
+            'date' => $request->date,
+            'fdate' => $request->fdate,
+            'recid' => $request->recid,
+            'owneremail' => $request->owneremail,
+            'ownername' => $request->ownername,
+        ]);
 
         return back();
     }
@@ -54,6 +55,11 @@ class VaxHistoryController extends Controller
         $history->fdate = $request->fdate;
         $history->recid = $request->recid;
         $history->save();
+        
+        $report = Report::updateOrCreate(
+            ['reporteddate' => $request->date],
+            ['vaccin' => DB::raw('vaccine + 1')],
+        );
 
         return back();
     }

@@ -41,26 +41,29 @@ class PetProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $petprofile = new PetProfile;
-        $petprofile->petname = $request->petname;
-        $petprofile->petgender = $request->petgender;
-        $petprofile->petbreed = $request->petbreed;
-        $petprofile->petspecies = $request->petspecies;
-        $petprofile->owneremail = Auth::user()->email;
-        $petprofile->ownername = Auth::user()->name;
+        $petprofilepicture;
 
         if ($request->hasFile('petimage')) {
             $filenameWithExt = $request->file('petimage')->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('petimage')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
-            $petprofile->profilepicture = $fileNameToStore;
+            $petprofilepicture = $fileNameToStore;
             $path = $request->file('petimage')->storeAs('public/profileimage', $fileNameToStore);
         }
         else{
-            $petprofile->profilepicture = "ClinicLogo.png";
+            $petprofilepicture = "ClinicLogo.png";
         }
-        $petprofile->save();
+
+        $petprofile = PetProfile::create([
+            'petname' => $request->petname,
+            'petgender' => $request->petgender,
+            'petbreed' => $request->petbreed,
+            'petspecies' => $request->petspecies,
+            'owneremail' => Auth::user()->email,
+            'ownername' => Auth::user()->name,
+            'profilepicture' => $petprofilepicture,
+        ]);
 
         return redirect('client-profile/'.Auth::user()->id);
     }

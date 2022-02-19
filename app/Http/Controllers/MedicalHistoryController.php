@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\MedicalHistory;
 use App\Models\HealthRecords;
 use Illuminate\Support\Facades\Hash;
+use DB;
+
 class MedicalHistoryController extends Controller
 {
     public function store(Request $request)
@@ -19,15 +21,20 @@ class MedicalHistoryController extends Controller
             'vxmx' => 'required',
         ]);
 
-        $history = new MedicalHistory;
-        $history->date = $request->date;
-        $history->weight = $request->weight;
-        $history->temp = $request->temp;
-        $history->checkup = $request->checkup;
-        $history->Treatment = $request->treatment;
-        $history->vxmx = $request->vxmx;
-        $history->recid = $request->recid;
-        $history->save();
+        $history = MedicalHistory::create([
+            'date' => $request->date,
+            'weight' => $request->weight,
+            'temp' => $request->temp,
+            'checkup' => $request->checkup,
+            'treatment' => $request->treatment,
+            'vxmx' => $request->vxmx,
+            'recid' => $request->recid,
+        ]);
+
+        $report = Report::updateOrCreate(
+            ['reporteddate' => $request->date],
+            ['health' => DB::raw('health + 1')],
+        );
 
         return back();
     }

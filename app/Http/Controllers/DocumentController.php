@@ -7,6 +7,8 @@ use App\Models\HealthRecords;
 use App\Models\MedicalHistory;
 use PDF;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class DocumentController extends Controller
 {
@@ -71,6 +73,12 @@ class DocumentController extends Controller
         //Save it into PDF
         $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
         $PDFWriter->save(public_path($record->ownername.'_'.$record->petname.'-pdfForm'.'.pdf'));
+
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn($history)
+            ->event('download')
+            ->log('Health History has been downloaded');
 
         return response()->download(public_path($record->ownername.'_'.$record->petname.'-pdfForm'.'.pdf'));
     }

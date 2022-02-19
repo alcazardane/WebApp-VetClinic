@@ -13,7 +13,7 @@
     <p>Time of Appointment: <b>{{ $time }}</b></p>
     <p>Purpose for Appointment: <b>{{ $purpose }}</b></p>
     <p>Keep in mind the date and time. We look forward to seeing you soon!</p>
-    <p>If you need to cancel or reschedule please reply to this email or contact us at 0933-812-1582.</p>
+    <p>If you need to cancel or reschedule please contact us at 0933-812-1582. Do not reply on this email.</p>
     <p>Thank you!</p>
 </body>
 </html>

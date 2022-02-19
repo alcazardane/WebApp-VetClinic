@@ -7,6 +7,8 @@ use App\Models\VaxRecords;
 use App\Models\VaxHistory;
 use PDF;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class VaxHistoryDocController extends Controller
 {
@@ -59,6 +61,12 @@ class VaxHistoryDocController extends Controller
         //Save it into PDF
         $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
         $PDFWriter->save(public_path($record->ownername.'_'.$record->petname.'-vaccine'.'-pdfForm'.'.pdf'));
+
+        activity('HISTORY_DL')
+            ->causedBy(Auth::user()->id)
+            ->performedOn($history)
+            ->event('download')
+            ->log('Vaccine History has been downloaded');
 
         return response()->download(public_path($record->ownername.'_'.$record->petname.'-vaccine'.'-pdfForm'.'.pdf'));
     }

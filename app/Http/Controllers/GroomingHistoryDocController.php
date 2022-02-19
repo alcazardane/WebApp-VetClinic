@@ -7,6 +7,8 @@ use App\Models\GroomingHistory;
 use App\Models\GroomingRecords;
 use PDF;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class GroomingHistoryDocController extends Controller
 {
@@ -48,6 +50,12 @@ class GroomingHistoryDocController extends Controller
         //Save it into PDF
         $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
         $PDFWriter->save(public_path($record->ownername.'_'.$record->petname.'-grooming'.'-pdfForm'.'.pdf'));
+
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn($history)
+            ->event('download')
+            ->log('Grooming History has been downloaded');
 
         return response()->download(public_path($record->ownername.'_'.$record->petname.'-grooming'.'-pdfForm'.'.pdf'));
     }

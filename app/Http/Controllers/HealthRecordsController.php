@@ -65,16 +65,16 @@ class HealthRecordsController extends Controller
             'contactnum' => 'required|numeric',
         ]);
 
-        $healthrecords = new HealthRecords;
-        $healthrecords->ownername=$request->ownername;
-        $healthrecords->petname=$request->petname;
-        $healthrecords->address=$request->address;
-        $healthrecords->birthday=$request->birthday;
-        $healthrecords->species=$request->species;
-        $healthrecords->breed=$request->breed;
-        $healthrecords->contactnum=$request->contactnum;
-        $healthrecords->recid=Hash::make($request->petname.$healthrecords->id);
-        $healthrecords->save();
+        $healthrecords = HealthRecords::create([
+            'ownername' => $request->ownername,
+            'petname' => $request->petname,
+            'address' => $request->address,
+            'birthday' => $request->birthday,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'contactnum' => $request->contactnum,
+            'recid' => uniqid('VTKZHTHREC-', true),
+        ]);
 
         return redirect('/healthrecords');
     }

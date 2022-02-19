@@ -86,13 +86,13 @@
             </div>
     
             <div class="collapse multi-collapse" id="multiCollapseExample2">
-                <form method="POST" action="profile-pass/{{ Auth::user()->id }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('accprofile.changepass', Auth::user()->id) }}" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="mb-3 ">
                         <div class="row mt-3 mb-3">
                             <div class="col">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('New Password') }}</label>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
     
                                 @error('password')

@@ -58,13 +58,13 @@ class GroomingRecordsController extends Controller
             'breed' => 'required',
         ]);
 
-        $groomingrecords = new GroomingRecords;
-        $groomingrecords->ownername=$request->ownername;
-        $groomingrecords->petname=$request->petname;
-        $groomingrecords->breed=$request->breed;
-        $groomingrecords->species=$request->species;
-        $groomingrecords->recid= Hash::make($request->petname.$groomingrecords->id);
-        $groomingrecords->save();
+        $groomingrecords = GroomingRecords::create([
+            'ownername' => $request->ownername,
+            'petname' => $request->petname,
+            'breed' => $request->breed,
+            'species' => $request->species,
+            'recid' => uniqid('VTKZGRMREC-', true),
+        ]);
 
         return redirect('/groomingrecords');
     }

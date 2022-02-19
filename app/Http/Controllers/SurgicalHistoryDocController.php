@@ -7,6 +7,8 @@ use App\Models\SurgicalRecords;
 use App\Models\SurgicalHistory;
 use PDF;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Spatie\Activitylog\Models\Activity;
+use Auth;
 
 class SurgicalHistoryDocController extends Controller
 {
@@ -81,6 +83,12 @@ class SurgicalHistoryDocController extends Controller
         //Save it into PDF
         $PDFWriter = \PhpOffice\PhpWord\IOFactory::createWriter($Content,'PDF');
         $PDFWriter->save(public_path($record->ownername.'_'.$record->petname.'-surgical'.'-pdfForm'.'.pdf'));
+
+        activity('HISTORY_DL')
+            ->causedBy(Auth::user()->id)
+            ->performedOn($history)
+            ->event('download')
+            ->log('Surgical History has been downloaded');
 
         return response()->download(public_path($record->ownername.'_'.$record->petname.'-surgical'.'-pdfForm'.'.pdf'));
     }

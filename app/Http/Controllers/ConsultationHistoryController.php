@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ConsultationRecords;
 use App\Models\ConsultationHistory;
+use App\Models\Report;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class ConsultationHistoryController extends Controller
 {
@@ -19,14 +21,19 @@ class ConsultationHistoryController extends Controller
             'vet' => 'required',
         ]);
 
-        $history = new ConsultationHistory;
-        $history->date = $request->date;
-        $history->procedure = $request->procedure;
-        $history->weight = $request->weight;
-        $history->temp = $request->temp;
-        $history->vet = $request->vet;
-        $history->recid = $request->recid;
-        $history->save();
+        $history = ConsultationHistory::create([
+            'date' => $request->date,
+            'procedure' => $request->procedure,
+            'weight' => $request->weight,
+            'temp' => $request->temp,
+            'vet' => $request->vet,
+            'recid' => $request->recid,
+        ]);
+
+        $report = Report::updateOrCreate(
+            ['reporteddate' => $request->date],
+            ['consultation' => DB::raw('consultation + 1')],
+        );
 
         return back();
     }

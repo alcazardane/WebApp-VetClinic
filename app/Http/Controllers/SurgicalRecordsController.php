@@ -60,14 +60,14 @@ class SurgicalRecordsController extends Controller
             'gender' => 'required',
         ]);
         
-        $records = new SurgicalRecords;
-        $records->ownername = $request->ownername;
-        $records->petname = $request->petname;
-        $records->species = $request->species;
-        $records->breed = $request->breed;
-        $records->gender = $request->gender;
-        $records->recid = Hash::make($request->petname.$records->id);
-        $records->save();
+        $records = SurgicalRecords::create([
+            'ownername' => $request->ownername,
+            'petname' => $request->petname,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'gender' => $request->gender,
+            'recid' => uniqid('VTKZSGCREC-', true),
+        ]);
 
         return redirect('surgicalrecords');
     }

@@ -19,7 +19,8 @@
         "laravel/ui": "^3.4",
         "mckenziearts/laravel-notify": "^2.2",
         "meilisearch/meilisearch-php": "^0.21.0",
-        "phpoffice/phpword": "^0.18.2"
+        "phpoffice/phpword": "^0.18.2",
+        "spatie/laravel-activitylog": "^4.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

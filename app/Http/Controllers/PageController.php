@@ -8,6 +8,7 @@ use App\Models\ClientCredentials;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
 use App\Models\PublicPosts;
+use DB;
 
 class PageController extends Controller
 {
@@ -32,18 +33,17 @@ class PageController extends Controller
             'purpose' => 'required',
         ]);
 
-        $appointment = new Appointment;
-        
-        $appointment->firstname = $request->firstname;
-        $appointment->lastname = $request->lastname;
-        $appointment->contactnum = $request->contactnum;
-        $appointment->email = $request->email;
-        $appointment->datetime = $request->datetime;
-        $appointment->purpose = $request->purpose;
-        $appid = $appointment->id;
-        $appidformat = sprintf('APP%s', $appid);
-        $appointment->appointmentid = $appidformat;
-        $appointment->save();
+        $lastid = DB::table('appointments')->orderBy('id','desc')->first();
+
+        $createAppointment = Appointment::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'contactnum' => $request->contactnum,
+            'email' => $request->email,
+            'purpose' => $request->purpose,
+            'datetime' => $request->datetime,
+            'appointmentid' => 'VTKZAPP-'.(int)$lastid->id+1,
+        ]);
 
         return redirect('/')->with('success', 'Thank you for requesting your appointment online. 
         We will send you an email confirmation as soon as this appointment is approved.

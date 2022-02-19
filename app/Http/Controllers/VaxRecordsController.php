@@ -61,14 +61,14 @@ class VaxRecordsController extends Controller
             'owneremail' => 'required',
         ]);
         
-        $vaxrecords = new VaxRecords;
-        $vaxrecords->ownername = $request->ownername;
-        $vaxrecords->petname = $request->petname;
-        $vaxrecords->species = $request->species;
-        $vaxrecords->breed = $request->breed;
-        $vaxrecords->owneremail = $request->owneremail;
-        $vaxrecords->recid = Hash::make($request->petname.$vaxrecords->id);
-        $vaxrecords->save();
+        $vaxrecords = VaxRecords::create([
+            'ownername' => $request->ownername,
+            'petname' => $request->petname,
+            'species' => $request->species,
+            'breed' => $request->breed,
+            'owneremail' => $request->owneremail,
+            'recid' => uniqid('VTKZVAXREC-', true),
+        ]);
 
         return redirect('/vaxrecords');
     }

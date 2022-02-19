@@ -23,14 +23,14 @@ class ReqRecordController extends Controller
     public function make(Request $request, $id)
     {
         $user = UserModel::findorFail($id);
-        $req = new ReqRecords;
 
-        $req->name = $user->name;
-        $req->email = $request->owneremail;
-        $req->request = $request->recreq;
-        $req->petname = $request->petname;
-        $req->status = "unattended";
-        $req->save();
+        $req = ReqRecords::create([
+            'name' => $user->name,
+            'email' => $request->owneremail,
+            'request' => $request->recreq,
+            'petname' => $request->petname,
+            'status' => "unattended",
+        ]);
 
         return back()->with('success', 'Request Sent');
     }

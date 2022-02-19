@@ -17,16 +17,20 @@ class PublicRecordsController extends Controller
         ]);
         
         $reqstatus = ReqRecords::findorFail($id);
-        $pubrecords = new PublicRecords;
-        $pubrecords->petname = $request->petname;
-        $pubrecords->email = $request->email;
+        $pubfilerecord;
+
         $filenameWithExt = $request->file('filerecord')->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         $extension = $request->file('filerecord')->getClientOriginalExtension();
         $fileNameToStore = $filename.'_'.time().'.'.$extension;
-        $pubrecords->filerecord = $fileNameToStore;
+        $pubfilerecord = $fileNameToStore;
         $path = $request->file('filerecord')->storeAs('public/filerecords', $fileNameToStore);
-        $pubrecords->save();
+
+        $pubrecords = PublicRecords::create([
+            'petname' => $request->petname,
+            'email' => $request->email,
+            'filerecord' => $pubfilerecord,
+        ]);
 
         $reqstatus->status = $request->status;
         $reqstatus->save();

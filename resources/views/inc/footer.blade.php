@@ -42,31 +42,12 @@
             </div>
         </div>
 
-        <div class="col-md-5 mb-md-0 mb-3 mt-3">
+        <div class="col-md-5 mb-md-0 mb-3">
+            <b>Clinic Hours</b>
             <!-- Links -->
             <ul class="list-group list-group-flush">
                 <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Monday:</b> 
-                    <span>9:00am - 8:00pm</span>
-                </li>
-                <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Tuesday:</b> 
-                    <span>9:00am - 8:00pm</span>
-                </li>
-                <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Wednesday:</b> 
-                    <span>9:00am - 8:00pm</span>
-                </li>
-                <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Thursday:</b> 
-                    <span>9:00am - 8:00pm</span>
-                </li>
-                <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Friday:</b> 
-                    <span>9:00am - 8:00pm</span>
-                </li>
-                <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">
-                    <b>Saturday:</b> 
+                    <b>Monday to Saturday:</b> 
                     <span>9:00am - 8:00pm</span>
                 </li>
                 <li style="background-color: transparent" class="list-group-item d-flex justify-content-between align-items-start">

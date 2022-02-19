@@ -64,16 +64,16 @@ class VetStaffController extends Controller
             'email' => 'required',
         ]);
 
-        $vetstaff = new VetStaff;
-        $vetstaff->firstname = $request->firstname;
-        $vetstaff->lastname = $request->lastname;
-        $vetstaff->sex = $request->sex;
-        $vetstaff->address = $request->address;
-        $vetstaff->contactnum = $request->contactnum;
-        $vetstaff->desc = $request->desc;
-        $vetstaff->vetstaffid = $request->vetstaffid;
-        $vetstaff->email = $request->email;
-        $vetstaff->save();
+        $vetstaff = VetStaff::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'sex' => $request->sex,
+            'address' => $request->address,
+            'contactnum' => $request->contactnum,
+            'desc' => $request->desc,
+            'vetstaffid' => $request->vetstaffid,
+            'email' => $request->email,
+        ]);
 
         return redirect('vetstaff');
     }
