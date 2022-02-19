@@ -35,6 +35,7 @@ use App\Http\Controllers\PetProfileController;
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AppLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -225,6 +226,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // * Statistic Routes
             Route::get('statistics', [ReportController::class, 'index'])->name('statistics.index');
             Route::get('reportdoc', [ReportController::class, 'downloadStats'])->name('statistics.download');
-        // *-------------------- 
+        // *--------------------
+
+        // * App Log
+            Route::get('applog', [AppLogController::class, 'show']);
+        // *--------------------
     });
 });
