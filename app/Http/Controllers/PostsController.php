@@ -44,7 +44,7 @@ class PostsController extends Controller
             'coverimage' => 'image|nullable|max:100000'
         ]);
 
-        $postcoverimage;
+        $postcoverimage = NULL;
 
         if ($request->hasFile('coverimage')) {
             $filenameWithExt = $request->file('coverimage')->getClientOriginalName();
