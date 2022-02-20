@@ -206,7 +206,7 @@ class ReportController extends Controller
             DB::raw('sum(surgical) as `surgical`'),
             DB::raw("DATE_FORMAT(reporteddate,'%Y') as repdate"),
             DB::raw('max(reporteddate) as repDate'))
-           ->where("reporteddate", ">=", \Carbon\Carbon::now())
+           ->where("reporteddate", ">=", \Carbon\Carbon::now()->format('Y'))
            ->orderBy('repDate', 'desc')
            ->groupBy('repdate')
            ->get();
